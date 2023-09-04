@@ -8,10 +8,6 @@ import { CommonPageProps } from "@/app/common-page-props";
 import { loadPageTranslations } from "@/app/i18n/server";
 import { SUPPORTED_LOCALES } from "@/app/i18n/settings";
 import LocaleProvider from "@/components/_/LocaleProvider/LocaleProvider";
-import BreadcrumbTrail from "@/components/BreadcrumbTrail/BreadcrumbTrail";
-import SiteDeck from "@/components/SiteDeck/SiteDeck";
-import SiteStern from "@/components/SiteStern/SiteStern";
-import { maybeProfileFromSession } from "@/library/_/session";
 
 import styles from "./layout.module.css";
 
@@ -53,8 +49,6 @@ export default async function RootLayout({
 }: {
 	children: ReactNode;
 } & CommonPageProps) {
-	const maybeProfile = await maybeProfileFromSession();
-
 	return (
 		<html
 			className={classNames(notoSans.variable, notoSansMono.variable)}
@@ -64,13 +58,7 @@ export default async function RootLayout({
 			<body>
 				<div className={styles["app-root"]}>
 					<LocaleProvider {...{ locale }}>
-						<SiteDeck profile={maybeProfile} />
-
-						<BreadcrumbTrail />
-
 						<main className={styles.main}>{children}</main>
-
-						<SiteStern {...{ locale }} />
 					</LocaleProvider>
 				</div>
 			</body>
